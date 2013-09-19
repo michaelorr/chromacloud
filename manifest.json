@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "CloudApp",
+    "version": "0.1",
+    "author": "Michael Orr",
+    "description": "An extension for uploading items to CloudApp",
+    "icons": {},
+
+    "browser_action": {},
+
+    "background": {
+        "scripts": [ "extension.js" ],
+        "persistent": true
+    },
+
+    "permissions": [
+        "http://*/*",
+        "webRequest",
+        "webRequestBlocking"
+    ]
+}
