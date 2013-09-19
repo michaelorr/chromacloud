@@ -14,8 +14,9 @@
     },
 
     "permissions": [
-        "http://*/*",
+        "http://my.cl.ly/*",
         "webRequest",
-        "webRequestBlocking"
+        "webRequestBlocking",
+        "activeTab"
     ]
 }

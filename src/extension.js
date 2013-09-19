@@ -1,6 +1,4 @@
-chrome.browserAction.onClicked.addListener( function() {attemptRequest();});
-
-function attemptRequest() {
+chrome.browserAction.onClicked.addListener(function(tab) {
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "http://my.cl.ly/items", true);
@@ -9,14 +7,12 @@ function attemptRequest() {
 
     var body = {
         "item":{
-            "name":"Testing",
-            "redirect_url":"http://google.com"
+            "name": tab.title,
+            "redirect_url": tab.url
         }
     };
-    body = JSON.stringify(body);
-
-    xhr.send(body);
-}   
+    xhr.send(JSON.stringify(body));
+});   
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
     function(details) {
@@ -28,14 +24,17 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
         }
         return {requestHeaders: details.requestHeaders};
     },
-    {urls: ["<all_urls>"]},
+    {urls: ["http://my.cl.ly/*"]},
     ["blocking", "requestHeaders"]
 );
 
 chrome.webRequest.onAuthRequired.addListener(
     function(details, fnCallback) {
-        fnCallback({authCredentials: {username: "cloud@michaelorr.net", password: "dummy_password"}});
+        fnCallback({authCredentials:{
+            username: "cloud@michaelorr.net",
+            password: "dummy_password"
+        }});
     },
-    {urls: ["<all_urls>"]},
+    {urls: ["http://my.cl.ly/*"]},
     ['asyncBlocking']
 );
