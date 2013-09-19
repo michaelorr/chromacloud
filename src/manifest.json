@@ -17,6 +17,7 @@
         "http://my.cl.ly/*",
         "webRequest",
         "webRequestBlocking",
+        "clipboardWrite",
         "activeTab"
     ]
 }

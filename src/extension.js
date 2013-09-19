@@ -4,7 +4,17 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     xhr.open("POST", "http://my.cl.ly/items", true);
     xhr.setRequestHeader("Accept", "application/json");
     xhr.setRequestHeader("Content-Type", "application/json");
-
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState==4 && xhr.status==200) {
+            var cb = document.createElement('textarea');
+            document.body.appendChild(cb);
+            cb.style.display = "block";
+            cb.value = JSON.parse(xhr.response).url;
+            cb.select();
+            document.execCommand("Copy");
+            cb.parentNode.removeChild(cb);
+        }
+    };
     var body = {
         "item":{
             "name": tab.title,
@@ -31,8 +41,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 chrome.webRequest.onAuthRequired.addListener(
     function(details, fnCallback) {
         fnCallback({authCredentials:{
-            username: "cloud@michaelorr.net",
-            password: "dummy_password"
+            username: "arthur@dent.com",
+            password: "towel"
         }});
     },
     {urls: ["http://my.cl.ly/*"]},
