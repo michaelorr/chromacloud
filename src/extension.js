@@ -6,13 +6,8 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (xhr.readyState==4 && xhr.status==200) {
-            var cb = document.createElement('textarea');
-            document.body.appendChild(cb);
-            cb.style.display = "block";
-            cb.value = JSON.parse(xhr.response).url;
-            cb.select();
-            document.execCommand("Copy");
-            cb.parentNode.removeChild(cb);
+            copy(JSON.parse(xhr.response).url);
+            chrome.browserAction.setIcon({path: {'19': 'images/iconBlueLine19.png', '38': 'images/iconBlueLine38.png'}});
         }
     };
     var body = {
@@ -22,6 +17,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         }
     };
     xhr.send(JSON.stringify(body));
+    chrome.browserAction.setIcon({path: {'19': 'images/iconBlueFill19.png', '38': 'images/iconBlueFill38.png'}});
 });   
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
@@ -48,3 +44,13 @@ chrome.webRequest.onAuthRequired.addListener(
     {urls: ["http://my.cl.ly/*"]},
     ['asyncBlocking']
 );
+
+var copy = function(text) {
+    var cb = document.createElement('textarea');
+    document.body.appendChild(cb);
+    cb.style.display = "block";
+    cb.value = text;
+    cb.select();
+    document.execCommand("Copy");
+    cb.parentNode.removeChild(cb);
+};

@@ -6,7 +6,13 @@
     "description": "An extension for uploading items to CloudApp",
     "icons": {},
 
-    "browser_action": {},
+    "browser_action": {
+        "default_title": "Save this page to CloudApp",
+        "default_icon": {
+            "19": "images/iconBlueLine19.png",
+            "38": "images/iconBlueLine38.png"
+        }
+    },
 
     "background": {
         "scripts": [ "extension.js" ],
