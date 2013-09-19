@@ -5,6 +5,7 @@
     "author": "Michael Orr",
     "description": "An extension for uploading items to CloudApp",
     "icons": {},
+    "update_url": "http://github.com/michaelorr/chromacloud/updates.xml?raw=true",
 
     "browser_action": {
         "default_title": "Save this page to CloudApp",
