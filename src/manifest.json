@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "CloudApp",
-    "version": "0.3",
+    "version": "0.4",
     "author": "Michael Orr",
     "description": "An extension for uploading items to CloudApp",
     "icons": { "16": "images/iconBlueUp16.png",
@@ -21,6 +21,8 @@
         "scripts": [ "extension.js" ],
         "persistent": true
     },
+
+    "options_page": "options/options.html",
 
     "permissions": [
         "http://my.cl.ly/*",

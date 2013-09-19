@@ -36,9 +36,11 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 
 chrome.webRequest.onAuthRequired.addListener(
     function(details, fnCallback) {
+        uname = localStorage['cloudapp_username'];
+        passwd = localStorage['cloudapp_password'];
         fnCallback({authCredentials:{
-            username: "arthur@dent.com",
-            password: "towel"
+            username: uname,
+            password: passwd
         }});
     },
     {urls: ["http://my.cl.ly/*"]},
