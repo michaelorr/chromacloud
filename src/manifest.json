@@ -4,7 +4,9 @@
     "version": "0.1",
     "author": "Michael Orr",
     "description": "An extension for uploading items to CloudApp",
-    "icons": {},
+    "icons": { "16": "images/iconBlueUp16.png",
+               "48": "images/iconBlueUp48.png",
+               "128": "images/iconBlueUp128.png" },
     "update_url": "http://github.com/michaelorr/chromacloud/updates.xml?raw=true",
 
     "browser_action": {
