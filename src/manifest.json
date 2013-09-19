@@ -7,7 +7,7 @@
     "icons": { "16": "images/iconBlueUp16.png",
                "48": "images/iconBlueUp48.png",
                "128": "images/iconBlueUp128.png" },
-    "update_url": "http://github.com/michaelorr/chromacloud/updates.xml?raw=true",
+    "update_url": "https://raw.github.com/michaelorr/chromacloud/master/updates.xml",
 
     "browser_action": {
         "default_title": "Save this page to CloudApp",
