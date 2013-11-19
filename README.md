@@ -1,7 +1,7 @@
 chromacloud
 ===========
 
-A chrome extension for [CloudApp](http://getcloudapp.com/).
+A [chrome extension](https://chrome.google.com/webstore/detail/chromacloud/jdpfockeefnnnkdajngibkacghcbabfe) for [CloudApp](http://getcloudapp.com/).
 
 This is an extension to easily send links to CloudApp and put the url on your clipboard.
 
