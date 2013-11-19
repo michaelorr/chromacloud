@@ -1,6 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "CloudApp",
+    "name": "ChromaCloud",
+    "short_name": "ChromaCloud",
     "version": "0.4",
     "author": "Michael Orr",
     "description": "An extension for uploading items to CloudApp",
