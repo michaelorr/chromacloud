@@ -104,3 +104,28 @@ var copy = function(text) {
     document.execCommand("Copy");
     cb.parentNode.removeChild(cb);
 };
+
+
+// -------------------------------
+// Udpdate Notifications
+// -------------------------------
+var updateId;
+chrome.runtime.onInstalled.addListener(function(details){
+    var update_notification = {
+        type: "basic",
+        title: "ChromaCloud was updated!",
+        message: "You are now updated to " + chrome.app.getDetails().version,
+        buttons: [{title:'Details'}],
+        iconUrl: 'images/iconBlueUp128_2.png',
+    }
+
+    if(details.reason == 'update') {
+        chrome.notifications.create('', update_notification, function(id){
+            updateId = id;
+        });
+    }
+});
+
+chrome.notifications.onButtonClicked.addListener(function(id, btn){
+    chrome.tabs.create({url:'/release-notes'}, function(t){chrome.windows.update(t.windowId, {focused:true})});
+});

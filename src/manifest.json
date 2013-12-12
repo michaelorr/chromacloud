@@ -31,6 +31,8 @@
         "webRequestBlocking",
         "clipboardWrite",
         "notifications",
+        "management",
+        "tabs",
         "activeTab"
     ]
 }
