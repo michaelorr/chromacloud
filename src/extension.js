@@ -33,6 +33,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
                 contextMessage: "Check your network connection.",
                 iconUrl: 'images/iconBlueUp128_2.png'
             }
+            chrome.browserAction.setIcon({path: {'19': 'images/iconBlueLine19.png', '38': 'images/iconBlueLine38.png'}});
             chrome.notifications.create('', notification_failure, function(notificationId){
                 setTimeout(function(){
                     chrome.notifications.clear(notificationId, function(){})
@@ -75,6 +76,8 @@ chrome.webRequest.onAuthRequired.addListener(
                 contextMessage: "Check your credentials.",
                 iconUrl: 'images/iconBlueUp128_2.png'
             }
+
+            chrome.browserAction.setIcon({path: {'19': 'images/iconBlueLine19.png', '38': 'images/iconBlueLine38.png'}});
             chrome.notifications.create('', notification_failure, function(notificationId){
                 setTimeout(function(){
                     chrome.notifications.clear(notificationId, function(){})
@@ -127,5 +130,5 @@ chrome.runtime.onInstalled.addListener(function(details){
 });
 
 chrome.notifications.onButtonClicked.addListener(function(id, btn){
-    chrome.tabs.create({url:'/release-notes'}, function(t){chrome.windows.update(t.windowId, {focused:true})});
+    chrome.tabs.create({url:'/release-notes.html'}, function(t){chrome.windows.update(t.windowId, {focused:true})});
 });
