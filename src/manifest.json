@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "ChromaCloud",
     "short_name": "ChromaCloud",
-    "version": "0.5",
+    "version": "0.5.1",
     "author": "Michael Orr",
     "description": "An extension for uploading items to CloudApp",
     "icons": { "16": "images/iconBlueUp16.png",
@@ -31,7 +31,6 @@
         "webRequestBlocking",
         "clipboardWrite",
         "notifications",
-        "management",
         "tabs",
         "activeTab"
     ]
