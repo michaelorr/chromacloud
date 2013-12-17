@@ -1,4 +1,7 @@
+var requestIds = new Array();
+
 chrome.browserAction.onClicked.addListener(function(tab) {
+    var item_title = tab.title
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", "http://my.cl.ly/items", true);
@@ -6,8 +9,36 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (xhr.readyState==4 && xhr.status==200) {
-            copy(JSON.parse(xhr.response).url);
+            item_url = JSON.parse(xhr.response).url;
+            var notification_success = {
+                type: "basic",
+                title: '"' + item_title + '" sent to CloudApp',
+                iconUrl: 'images/iconBlueUp128_2.png',
+                message: item_url
+            }
+
+            copy(item_url);
             chrome.browserAction.setIcon({path: {'19': 'images/iconBlueLine19.png', '38': 'images/iconBlueLine38.png'}});
+            chrome.notifications.create('', notification_success, function(notificationId){
+                setTimeout(function(){
+                    chrome.notifications.clear(notificationId, function(){})
+                }, 5000)
+            });
+        }
+        if (xhr.readyState == 4 && xhr.status!=200) {
+            var notification_failure = {
+                type: "basic",
+                title: "There was a problem",
+                message: "The item was not uploaded to CloudApp.",
+                contextMessage: "Check your network connection.",
+                iconUrl: 'images/iconBlueUp128_2.png'
+            }
+            chrome.browserAction.setIcon({path: {'19': 'images/iconBlueLine19.png', '38': 'images/iconBlueLine38.png'}});
+            chrome.notifications.create('', notification_failure, function(notificationId){
+                setTimeout(function(){
+                    chrome.notifications.clear(notificationId, function(){})
+                }, 5000)
+            });
         }
     };
     var body = {
@@ -36,6 +67,26 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 
 chrome.webRequest.onAuthRequired.addListener(
     function(details, fnCallback) {
+
+        if (requestIds.indexOf(details.requestId) != -1) {
+            var notification_failure = {
+                type: "basic",
+                title: "There was a problem",
+                message: "The item was not uploaded to CloudApp.",
+                contextMessage: "Check your credentials.",
+                iconUrl: 'images/iconBlueUp128_2.png'
+            }
+
+            chrome.browserAction.setIcon({path: {'19': 'images/iconBlueLine19.png', '38': 'images/iconBlueLine38.png'}});
+            chrome.notifications.create('', notification_failure, function(notificationId){
+                setTimeout(function(){
+                    chrome.notifications.clear(notificationId, function(){})
+                }, 5000)
+            });
+            return;
+        }
+        requestIds.push(details.requestId);
+
         uname = localStorage['cloudapp_username'];
         passwd = localStorage['cloudapp_password'];
         fnCallback({authCredentials:{
@@ -56,3 +107,28 @@ var copy = function(text) {
     document.execCommand("Copy");
     cb.parentNode.removeChild(cb);
 };
+
+
+// -------------------------------
+// Udpdate Notifications
+// -------------------------------
+var updateId;
+chrome.runtime.onInstalled.addListener(function(details){
+    var update_notification = {
+        type: "basic",
+        title: "ChromaCloud was updated!",
+        message: "You are now updated to " + chrome.app.getDetails().version,
+        buttons: [{title:'Details'}],
+        iconUrl: 'images/iconBlueUp128_2.png',
+    }
+
+    if(details.reason == 'update') {
+        chrome.notifications.create('', update_notification, function(id){
+            updateId = id;
+        });
+    }
+});
+
+chrome.notifications.onButtonClicked.addListener(function(id, btn){
+    chrome.tabs.create({url:'/release-notes.html'}, function(t){chrome.windows.update(t.windowId, {focused:true})});
+});

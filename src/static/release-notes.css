@@ -1,0 +1,26 @@
+.section-wrapper h3 {
+    width:115px;
+    margin-top:18px;
+    line-height:23px;
+}
+
+.section-wrapper ul {
+    width:430px;
+    line-height:23px;
+    margin-top:18px;
+    margin-bottom:22px;
+}
+
+.section-wrapper:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear:both;
+}
+
+#content-inner-container {
+    padding-bottom:0px;
+}
+.section-wrapper ul li {
+}
